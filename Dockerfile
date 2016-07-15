@@ -1,5 +1,5 @@
 FROM alpine:3.4
-MAINTAINER Cole Calistra <cole@kairos.com>
+MAINTAINER The Website Nursery <hello@thewebsitenursery.com>
 
 RUN apk --update add wget \ 
     nginx \
@@ -59,8 +59,12 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/php.ini    
     chmod 755 /start.sh                       && \
     find /etc/php5/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
+# Volumes
+VOLUMES /var/www/app
+
 # Expose Ports
 EXPOSE 443 80
+
 
 # Start Supervisord
 CMD ["/bin/sh", "/start.sh"]
